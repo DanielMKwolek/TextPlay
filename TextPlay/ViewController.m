@@ -8,7 +8,11 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <UITextFieldDelegate>
+@property (strong, nonatomic) IBOutlet UILabel *RightLabel;
+@property (strong, nonatomic) IBOutlet UILabel *LeftLabel;
+- (IBAction)buttonPressed:(UIButton *)sender;
+@property (strong, nonatomic) IBOutlet UITextField *CenterText;
 
 @end
 
@@ -25,5 +29,36 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)clearAllText
+{
+    [self.CenterText setText:@""];
+    [self.LeftLabel setText:@""];
+    [self.RightLabel setText:@""];
+}
+
+- (IBAction)buttonPressed:(UIButton *)sender {
+    if ([sender.titleLabel.text isEqualToString:@"UpdateLeft"])
+    {
+        [self.LeftLabel setText:[_CenterText text]];
+    } else if ([sender.titleLabel.text isEqualToString:@"UpdateRight"])
+    {
+            [self.RightLabel setText:[_CenterText text]];
+    } else if ([sender.titleLabel.text isEqualToString:@"Reset"])
+    {
+        [self clearAllText];
+    }
+}
+
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    return YES;
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
 
 @end
